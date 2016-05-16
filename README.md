@@ -24,7 +24,37 @@ In this talk, we presented two examples.
 
 ### Example 1
 
-In the first example, in every N seconds, we are getting tweets from Twitter. Then, several transformations have been performed on it. Finally, we are connecting the stream to two sinks: A websocket endpoint built using Http4s and also a `io.stdPrintLine` sink.
+In the first example (see Routes.scala), in every N seconds, we are getting tweets from Twitter. 
+
+
+```scala 
+val query = ...
+val source = awakeEvery(5 seconds) |> buildTwitterQuery(query) through queryChannel flatMap {
+  Process emitAll _
+}
+```
+
+Then, several transformations have been performed on source, such as sentiment analysis. 
+
+```scala 
+source. map(status ⇒
+      Tweet(
+        author = Author(status.getUser.getScreenName),
+        retweetCount = status.getRetweetCount,
+        body = status.getText)
+    ) through analysisChannel map (_.toString)
+```
+
+Finally, we are connecting the stream to two sinks: A websocket endpoint built using Http4s and also a `io.stdOutLines` sink.
+
+```scala 
+val query = new Query("#spark")
+val src1: Process[Task, Text] = twitterSource(query)
+        .observe(io.stdOutLines) // sink1 
+        .map(Text(_))
+
+WS(Exchange(src1, Process.halt)) // sink2 
+```
 
 If we run the application and initiate the websocket request, we can see the live stream from twitter: 
 
@@ -37,7 +67,6 @@ In the first example, we have created the source from scratch. But in real world
 
 Hence, in the second example, instead of building a source from scratch, we have used an existing stream, via Twitter’s Streaming API and similarly performed the sentiment analysis and connected it to the websocket endpoint. 
 
-![Stream from Example2](docs/img/example2.png)
 
 Disclaimer: Note that these examples are for the demonstration purpose only. Using them in production system would require some careful consideration. 
 
