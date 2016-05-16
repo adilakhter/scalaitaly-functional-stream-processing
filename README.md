@@ -9,11 +9,16 @@ Slides of the talk is available [here](./adilakhter-scalaz.pdf). Credits for the
 
 ## Code
 
-To get started the examples demonstrated. 
+To get started the examples demonstrated during the talk.  
 
 ```
 $ git clone https://github.com/adilakhter/scalaitaly-functional-stream-processing.git
 $ cd scalaitaly-functional-stream-processing
+```
+
+Update the Twitter's access and consumer keys at `src/main/resources/logback.xml` and then run as follows:
+
+```
 $ sbt 
 > restart
 ```
