@@ -16,7 +16,7 @@ $ git clone https://github.com/adilakhter/scalaitaly-functional-stream-processin
 $ cd scalaitaly-functional-stream-processing
 ```
 
-Update the Twitter's access and consumer keys at `src/main/resources/logback.xml` and then run as follows:
+Please update the Twitter's access and consumer keys (which can be generated from https://apps.twitter.com/) at `src/main/resources/logback.xml` and then run the application follows:
 
 ```
 $ sbt 
