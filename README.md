@@ -4,7 +4,7 @@ This repository contains the artefacts of the talk **Functional Stream Processin
 
 Primary objective of this talk was to introduce Scalaz-Stream and discuss its key goals, design philosophy and core building block, Process and its semantics. 
 
-Slides of the talk is available [here](./ adilakhter-scalaz.pdf). Credits for the images used in slides: [Mario Sixtus]( https://www.flickr.com/photos/sixtus/).
+Slides of the talk is available [here](./adilakhter-scalaz.pdf). Credits for the images used in slides: [Mario Sixtus]( https://www.flickr.com/photos/sixtus/).
 
 
 ## Code
