@@ -65,7 +65,23 @@ If we run the application and initiate the websocket request, we can see the liv
 
 In the first example, we have created the source from scratch. But in real world cases, there may be an existing stream of data that we have use as a source. 
 
-Hence, in the second example, instead of building a source from scratch, we have used an existing stream, via Twitter’s Streaming API and similarly performed the sentiment analysis and connected it to the websocket endpoint. 
+Hence, in the second example (see Routes.scala), instead of building a source from scratch, we have used an existing stream with `async.boundedQueue`, via Twitter’s Streaming API and similarly performed the sentiment analysis and connected it to the websocket endpoint. 
+
+```scala 
+import TwitterStreamClient._
+val tweetsQueue: Queue[Status] = async.boundedQueue[Status](size)
+
+Process.eval_(stream(tweetsQueue))
+  .run
+  .runAsync { _ ⇒ println("All input data was written") }
+
+tweetsQueue.dequeue.map(status ⇒
+  Tweet(
+    author = Author(status.getUser.getScreenName),
+    retweetCount = status.getRetweetCount,
+    body = status.getText)
+) through analysisChannel map (_.toString)
+```
 
 
 Disclaimer: Note that these examples are for the demonstration purpose only. Using them in production system would require some careful consideration. 
