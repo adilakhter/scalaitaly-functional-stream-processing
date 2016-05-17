@@ -7,7 +7,7 @@ Primary objective of this talk was to introduce Scalaz-Stream and discuss its ke
 Slides of the talk is available [here](./adilakhter-scalaz.pdf). Credits for the images used in slides: [Mario Sixtus]( https://www.flickr.com/photos/sixtus/).
 
 
-## Code
+## Code: _Sentiment Analysis of Tweets_
 
 To get started the examples demonstrated during the talk.  
 
